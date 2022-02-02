@@ -5,11 +5,23 @@ export type NewsDocument = News & Document;
 
 @Schema()
 export class News {
-    @Prop({ required: true })
+    @Prop()
     title: string;
 
     @Prop()
     description?: string;
+
+    @Prop()
+    author: string;
+
+    @Prop()
+    story_url: string;
+
+    @Prop()
+    tags: string[];
+
+    @Prop()
+    writtenAt: string;
 
     @Prop()
     updatedAt?: Date;
