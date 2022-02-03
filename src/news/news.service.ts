@@ -6,6 +6,7 @@ import { CreateNewsDto } from './dto/create-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
 import { HttpService } from '@nestjs/axios';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import { QueryOptions } from 'src/options/query-options.config';
 
 
 @Injectable()
@@ -16,13 +17,21 @@ export class NewsService {
         return await new this.newsModel({...createNewsDto, createdAt: new Date()}).save();
     }
 
-    async findAll(): Promise<News[]> {
-        let value = 0
-        return await this.newsModel.find().skip(value).limit(5).exec();
+    async findAll(options: QueryOptions) {
+        const result = await this.newsModel.find().skip(Number(options.offset)).limit(5).exec();
+        return {result, total: result.length};
     }
 
     async findOne(_id: string): Promise<News> {
         return await this.newsModel.findById(_id).exec();
+    }
+
+    async findByMonth(options: QueryOptions ,month: string): Promise<News[]> {
+        return await this.newsModel.find({month}).skip(Number(options.offset)).limit(5).exec();
+    }
+
+    async findByAuthor(options: QueryOptions ,author: string): Promise<News[]> {
+        return await this.newsModel.find({author}).skip(Number(options.offset)).limit(5).exec();
     }
 
     async update(_id: string, updateNewsDto: UpdateNewsDto): Promise<News> {
