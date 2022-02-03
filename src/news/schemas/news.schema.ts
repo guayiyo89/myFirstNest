@@ -15,13 +15,13 @@ export class News {
     author: string;
 
     @Prop()
-    story_url: string;
-
-    @Prop()
     tags: string[];
 
     @Prop()
     writtenAt: string;
+
+    @Prop()
+    month: string;
 
     @Prop()
     updatedAt?: Date;

@@ -13,8 +13,8 @@ export class NewsController {
     }
 
     @Get(':id')
-    async find(@Param('id') id:string){
-        return await this.newsService.findOne(id);
+    async find(@Param('id') _id:string){
+        return await this.newsService.findOne(_id);
     }
 
     @Post()
@@ -23,8 +23,8 @@ export class NewsController {
     }
 
     @Put(':id')
-    async update(@Param('id') id:string, @Body() updateNewsDto: UpdateNewsDto){
-        return await this.newsService.update(id, updateNewsDto);
+    async update(@Param('id') _id:string, @Body() updateNewsDto: UpdateNewsDto){
+        return await this.newsService.update(_id, updateNewsDto);
     }
 
     @Delete(':id')
