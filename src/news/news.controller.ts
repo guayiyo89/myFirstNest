@@ -32,6 +32,12 @@ export class NewsController {
         return await this.newsService.findByAuthor(req.query, author);
     }
 
+    //@UseGuards(JwtAuthGuard)
+    @Get('/tag/:tag')
+    async findByTag(@Req() req, @Param('tag') tag:string){
+        return await this.newsService.findByTag(req.query, tag);
+    }
+
     @Post()
     async create(@Body() createNewsDto: CreateNewsDto){
         return await this.newsService.create(createNewsDto);

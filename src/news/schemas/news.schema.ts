@@ -15,7 +15,7 @@ export class News {
     author: string;
 
     @Prop()
-    tags: string[];
+    tags: [{ type: string }];
 
     @Prop()
     writtenAt: string;

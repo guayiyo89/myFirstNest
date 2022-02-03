@@ -34,6 +34,10 @@ export class NewsService {
         return await this.newsModel.find({author}).skip(Number(options.offset)).limit(5).exec();
     }
 
+    async findByTag(options: QueryOptions ,tag: string): Promise<News[]> {
+        return await this.newsModel.find({tags: tag}).skip(Number(options.offset)).limit(5).exec();
+    }
+
     async update(_id: string, updateNewsDto: UpdateNewsDto): Promise<News> {
         return await this.newsModel.findByIdAndUpdate(_id, updateNewsDto).exec();
     }
