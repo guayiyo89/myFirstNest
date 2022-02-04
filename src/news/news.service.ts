@@ -91,7 +91,7 @@ export class NewsService {
                 if(result.length == 0){
                     console.log('a news has been added to database', pin.author);
                     new this.newsModel({
-                        title: pin._highlightResult.story_title.value,
+                        title: pin.story_title || 'untitled',
                         description: pin.comment_text,
                         author: pin.author,
                         tags: pin._tags,
@@ -117,7 +117,7 @@ export class NewsService {
                         
             pin.forEach(article => {
                 let month = this.getMonth(article.created_at)
-                let titulo = article._highlightResult.story_title.value 
+                let titulo = article.story_title 
                 console.log(titulo)
                 
                 arrNews.push({
