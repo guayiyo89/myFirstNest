@@ -24,7 +24,7 @@ export class News {
     month: string;
 
     @Prop()
-    story_id: string;
+    story_id: number;
 
     @Prop()
     updatedAt?: Date;

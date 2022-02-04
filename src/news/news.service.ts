@@ -61,6 +61,10 @@ export class NewsService {
     async findByStoryId(story_id: number): Promise<News[]>{
         return await this.newsModel.find({story_id}).exec()
     }
+
+    async fillDb() {
+        return await this.fillDatabase()
+    }
     
     @Cron(CronExpression.EVERY_HOUR)
     handleCron() {
@@ -68,26 +72,57 @@ export class NewsService {
         this.httpSvc.get(url).subscribe(news => {
             let pin = news.data.hits[0]
             let storyId = pin.story_id
-            if(this.findByStoryId(storyId)){
-                return
-            }
             let month = this.getMonth(pin.created_at)
-            console.log('a news has been added to database', pin.author);
-            new this.newsModel({
-                title: pin._highlightResult.story_title.value,
-                description: pin.comment_text,
-                author: pin.author,
-                tags: pin._tags,
-                writtenAt: pin.created_at,
-                month: month,
-                createdAt: new Date()
-            }).save()
+
+            this.findByStoryId(storyId).then(result => {
+                console.log(result.length)
+                if(result.length == 0){
+                    console.log('a news has been added to database', pin.author);
+                    new this.newsModel({
+                        title: pin._highlightResult.story_title.value,
+                        description: pin.comment_text,
+                        author: pin.author,
+                        tags: pin._tags,
+                        writtenAt: pin.created_at,
+                        month: month,
+                        story_id: storyId,
+                        createdAt: new Date()
+                    }).save()
+                }
+            })
+            
+            
+        })
+    }
+
+    fillDatabase(){
+        const url = "https://hn.algolia.com/api/v1/search_by_date?query=nodejs"
+
+        this.httpSvc.get(url).subscribe(news => {
+            let pin = news.data.hits
+            pin.forEach(article => {
+                let month = this.getMonth(article.created_at)
+                let titulo = article._highlightResult.story_title.value 
+                console.log(titulo)
+
+                new this.newsModel({
+                    title: titulo || 'untitled',
+                    description: article.comment_text,
+                    author: article.author,
+                    tags: article._tags,
+                    writtenAt: article.created_at,
+                    month: month,
+                    story_id: article.story_id,
+                    createdAt: new Date()
+                }).save()
+
+            });
+            console.log('the news has been added to database', pin.length);
         })
     }
 
     getMonth(dateAt:string){
         let month = (dateAt.split('T')[0]).split('-')[1]
-        console.log(month)
         let mes = ''
         switch (month){
             case '01':

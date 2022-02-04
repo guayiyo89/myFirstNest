@@ -32,10 +32,15 @@ export class NewsController {
         return await this.newsService.findByAuthor(req.query, author);
     }
 
-    //@UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Get('/tag/:tag')
     async findByTag(@Req() req, @Param('tag') tag:string){
         return await this.newsService.findByTag(req.query, tag);
+    }
+
+    @Get('/byStoryId/:story_id')
+    async findByStoryId(@Param('story_id') story_id: number){
+        return await this.newsService.findByStoryId(story_id)
     }
 
     @Post()
@@ -52,5 +57,11 @@ export class NewsController {
     @Delete(':id')
     async delete(@Param('id') id:string){
         return await this.newsService.delete(id);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('fill')
+    async fillNews(){
+        return await this.newsService.fillDatabase()
     }
 }
