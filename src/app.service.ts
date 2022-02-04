@@ -12,8 +12,6 @@ export class AppService {
     return 'Hello World!';
   }
 
-
-
   async getNewsFromApi() {
     const url = "https://hn.algolia.com/api/v1/search_by_date?query=nodejs"
     const { data } = await firstValueFrom(this.httpSvc.get(url));

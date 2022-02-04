@@ -43,16 +43,6 @@ export class NewsController {
         return await this.newsService.findByStoryId(story_id)
     }
 
-    @Post()
-    async create(@Body() createNewsDto: CreateNewsDto){
-        return await this.newsService.create(createNewsDto);
-    }
-
-    @Put(':id')
-    async update(@Param('id') _id:string, @Body() updateNewsDto: UpdateNewsDto){
-        return await this.newsService.update(_id, updateNewsDto);
-    }
-
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
     async delete(@Param('id') id:string){

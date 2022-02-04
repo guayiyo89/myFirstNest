@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -22,19 +22,30 @@ export class UsersService {
     return await this.userModel.find().exec();
   }
 
-  async findOne(id: number): Promise<User> {
-    return await this.userModel.findById(id).exec();
+  async findOne(_id: string){
+    try{
+      const user = await this.userModel.findById(_id).exec();
+
+      if(!user){
+        return {code: 404, message: 'User not found'}
+      }
+
+      return user
+    } 
+    catch(e){
+      throw new BadRequestException(e.message)
+    }
   }
 
   async findByUsername(username: string): Promise<User> {
     return await this.userModel.findOne({username}).exec();
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     return await this.userModel.findByIdAndUpdate(id, updateUserDto).exec();
   }
 
-  async delete(id: number): Promise<User> {
+  async delete(id: string): Promise<User> {
     return await this.userModel.findByIdAndDelete(id).exec();
   }
 }

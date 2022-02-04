@@ -20,7 +20,7 @@ export class NewsBaseDto {
     author?: string;
 
     @ApiProperty({
-        type: String,
+        type: Array,
         description: "The Tags attached to the article"
     })
     tags: [{type: string}];

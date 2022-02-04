@@ -25,8 +25,13 @@ export class NewsService {
         return {result, total: result.length};
     }
 
-    async findOne(_id: string): Promise<News> {
-        return await this.newsModel.findById(_id).exec();
+    async findOne(_id: string){
+        const news = await this.newsModel.findById(_id).exec();
+        if(!news){
+            return {code: 404, message: 'User not found'}
+        } else {
+            return news
+        }
     }
 
     async findByMonth(options: QueryOptions ,month: string): Promise<News[]> {
@@ -41,6 +46,13 @@ export class NewsService {
             options.offset = 0
         }
         return await this.newsModel.find({author}).skip(Number(options.offset)).limit(5).exec();
+    }
+
+    async findByTitle(options: QueryOptions ,title: string): Promise<News[]> {
+        if(!options.offset){
+            options.offset = 0
+        }
+        return await this.newsModel.find({title}).skip(Number(options.offset)).limit(5).exec();
     }
 
     async findByTag(options: QueryOptions ,tag: string): Promise<News[]> {
@@ -100,12 +112,15 @@ export class NewsService {
 
         this.httpSvc.get(url).subscribe(news => {
             let pin = news.data.hits
+
+            let arrNews = []
+                        
             pin.forEach(article => {
                 let month = this.getMonth(article.created_at)
                 let titulo = article._highlightResult.story_title.value 
                 console.log(titulo)
-
-                new this.newsModel({
+                
+                arrNews.push({
                     title: titulo || 'untitled',
                     description: article.comment_text,
                     author: article.author,
@@ -114,13 +129,16 @@ export class NewsService {
                     month: month,
                     story_id: article.story_id,
                     createdAt: new Date()
-                }).save()
-
+                })
+                
             });
+            this.newsModel.insertMany(arrNews).then(result => {
+                console.log(result)
+            })
             console.log('the news has been added to database', pin.length);
         })
     }
-
+    
     getMonth(dateAt:string){
         let month = (dateAt.split('T')[0]).split('-')[1]
         let mes = ''
@@ -168,10 +186,3 @@ export class NewsService {
 
 }
 
-// new this.newsModel({
-//     title: news.data.hits[0].story_title.value,
-//     description: news.data.hits[0].comment_text,
-//     author: news.data.hits[0].author,
-//     story_url: news.data.hits[0].story_url,
-//     createdAt: new Date()
-// }).save()
