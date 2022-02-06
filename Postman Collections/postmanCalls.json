@@ -10,7 +10,7 @@
       "item": [
         {
           "name": "Fill DB",
-          "_postman_id": "696cbae9-4d3b-4c3f-a269-ab964de9238f",
+          "id": "696cbae9-4d3b-4c3f-a269-ab964de9238f",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -32,7 +32,7 @@
         },
         {
           "name": "GetNews",
-          "_postman_id": "7dc5c56f-5e83-4d24-974d-f2744c50beeb",
+          "id": "7dc5c56f-5e83-4d24-974d-f2744c50beeb",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -76,7 +76,7 @@
         },
         {
           "name": "GetNewsByID",
-          "_postman_id": "5696fb62-f144-47f9-8ec8-3a86e3e315aa",
+          "id": "5696fb62-f144-47f9-8ec8-3a86e3e315aa",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -89,7 +89,7 @@
         },
         {
           "name": "GetNewsByMes",
-          "_postman_id": "642cb5ed-aeae-43c6-b98c-b9aec783cc44",
+          "id": "642cb5ed-aeae-43c6-b98c-b9aec783cc44",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -135,7 +135,7 @@
         },
         {
           "name": "GetNewsByTitle",
-          "_postman_id": "4522250e-185a-449c-8366-5380451d70e2",
+          "id": "4522250e-185a-449c-8366-5380451d70e2",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -163,7 +163,7 @@
         },
         {
           "name": "GetNewsByAutor",
-          "_postman_id": "bbfdaf66-8b61-4432-84ae-a812f402f312",
+          "id": "bbfdaf66-8b61-4432-84ae-a812f402f312",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -209,7 +209,7 @@
         },
         {
           "name": "GetNewsByTag",
-          "_postman_id": "8ace3740-9325-4c85-8e67-c20edc6bff1d",
+          "id": "8ace3740-9325-4c85-8e67-c20edc6bff1d",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -255,7 +255,7 @@
         },
         {
           "name": "DeleteNewsByID",
-          "_postman_id": "9c08d324-5744-4f2d-be2b-64d64706e658",
+          "id": "9c08d324-5744-4f2d-be2b-64d64706e658",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -267,14 +267,14 @@
           "response": []
         }
       ],
-      "_postman_id": "fed34a13-d0b7-41ab-b24c-6a693db6444d"
+      "id": "fed34a13-d0b7-41ab-b24c-6a693db6444d"
     },
     {
       "name": "Users and Login",
       "item": [
         {
           "name": "CreateUser",
-          "_postman_id": "7f4c9b1d-bbcc-4703-9b3b-ff4236ecf3ad",
+          "id": "7f4c9b1d-bbcc-4703-9b3b-ff4236ecf3ad",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -296,7 +296,7 @@
         },
         {
           "name": "DeleteUser",
-          "_postman_id": "7faefae2-9346-48b4-af39-21377f57d5b3",
+          "id": "7faefae2-9346-48b4-af39-21377f57d5b3",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -318,7 +318,7 @@
         },
         {
           "name": "FindUserByName",
-          "_postman_id": "684a32bb-e78e-445a-ae51-42fa50143a30",
+          "id": "684a32bb-e78e-445a-ae51-42fa50143a30",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -340,7 +340,7 @@
         },
         {
           "name": "Login",
-          "_postman_id": "fc3e143e-581d-4cc2-9306-af4656168c5e",
+          "id": "fc3e143e-581d-4cc2-9306-af4656168c5e",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -349,7 +349,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"username\": \"eduMancilla\",\r\n    \"password\": \"guayod2019\"\r\n}",
+              "raw": "{\r\n    \"username\": \"default\",\r\n    \"password\": \"reign2020\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -362,7 +362,7 @@
         },
         {
           "name": "GetUser",
-          "_postman_id": "c01abead-8e40-4053-8f58-dda7955ce443",
+          "id": "c01abead-8e40-4053-8f58-dda7955ce443",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -383,11 +383,11 @@
           "response": []
         }
       ],
-      "_postman_id": "319a047f-2256-44e6-88a7-eb7fb4d471f9"
+      "id": "319a047f-2256-44e6-88a7-eb7fb4d471f9"
     },
     {
       "name": "HackerNews API Route",
-      "_postman_id": "596209c1-1245-491f-968f-20435bbfd36b",
+      "id": "596209c1-1245-491f-968f-20435bbfd36b",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
