@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { News, NewsSchema } from './schemas/news.schema';
@@ -7,6 +7,7 @@ import { UpdateNewsDto } from './dto/update-news.dto';
 import { HttpService } from '@nestjs/axios';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { QueryOptions } from 'src/options/query-options.config';
+import { NotFoundError } from 'rxjs';
 
 
 @Injectable()
@@ -14,7 +15,11 @@ export class NewsService {
     constructor(@InjectModel(News.name) private readonly newsModel: Model<News>, private httpSvc: HttpService) { }
 
     async create(createNewsDto: CreateNewsDto): Promise<News> {
-        return await new this.newsModel({...createNewsDto, createdAt: new Date()}).save();
+        try{
+            return await new this.newsModel({...createNewsDto, createdAt: new Date()}).save();
+        } catch(err){
+            throw new InternalServerErrorException(err)
+        }
     }
 
     async findAll(options: QueryOptions) {
@@ -26,11 +31,17 @@ export class NewsService {
     }
 
     async findOne(_id: string){
-        const news = await this.newsModel.findById(_id).exec();
-        if(!news){
-            return {code: 404, message: 'User not found'}
-        } else {
+        try{
+            const news = await this.newsModel.findById(_id).exec()
+
+            if(!news){
+                throw new NotFoundException('the article does not exist ' + _id)
+            }
+
             return news
+        }
+        catch(err){
+            throw new BadRequestException(err.message)
         }
     }
 
@@ -52,7 +63,7 @@ export class NewsService {
         if(!options.offset){
             options.offset = 0
         }
-        return await this.newsModel.find({title}).skip(Number(options.offset)).limit(5).exec();
+        return await this.newsModel.find({title: {$regex: `/${title}/`, options: 'i'}}).skip(Number(options.offset)).limit(5).exec();
     }
 
     async findByTag(options: QueryOptions ,tag: string): Promise<News[]> {
@@ -67,7 +78,18 @@ export class NewsService {
     }
 
     async delete(_id: string): Promise<News> {
-        return await this.newsModel.findByIdAndDelete(_id).exec();
+        try{
+            const news = await this.newsModel.findById(_id).exec()
+
+            if(!news){
+                throw new NotFoundException('the article does not exist ' + _id)
+            }
+
+            return await this.newsModel.findByIdAndDelete(_id).exec();
+        }
+        catch(err){
+            throw new BadRequestException(err.message)
+        }
     }
 
     async findByStoryId(story_id: number): Promise<News[]>{
@@ -132,7 +154,8 @@ export class NewsService {
                 })
                 
             });
-            this.newsModel.insertMany(arrNews).then(result => {
+
+            this.newsModel.insertMany(arrNews.reverse).then(result => {
                 console.log(result)
             })
             console.log('the news has been added to database', pin.length);
