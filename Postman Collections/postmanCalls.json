@@ -1,0 +1,421 @@
+{
+    "info": {
+      "_postman_id": "e279b2e4-e495-4611-9f68-fbbce52d50a9",
+      "name": "NestJS",
+      "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "News",
+        "item": [
+          {
+            "name": "Fill DB",
+            "_postman_id": "696cbae9-4d3b-4c3f-a269-ab964de9238f",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"title\": \"Mi nuevo Post\",\r\n    \"description\": \"Una descripcion al azar. Espero que le guste.\",\r\n    \"author\": \"Guayo\",\r\n    \"story_url\": \"wisensor.cl\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": "http://localhost:3000/news/fill"
+            },
+            "response": []
+          },
+          {
+            "name": "GetNews",
+            "_postman_id": "7dc5c56f-5e83-4d24-974d-f2744c50beeb",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDM5MTQxMDUsImV4cCI6MTY0MzkxNTkwNX0.Z_PGolrgPTNUZpPiJvE8QhiEURLlQ4TeAycSe_DuhYk"
+                }
+              },
+              "method": "GET",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"title\": \"Mi nuevo Post\",\r\n    \"description\": \"Una descripcion al azar. Espero que le guste.\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "http://localhost:3000/news?offset=4",
+                "protocol": "http",
+                "host": [
+                  "localhost"
+                ],
+                "port": "3000",
+                "path": [
+                  "news"
+                ],
+                "query": [
+                  {
+                    "key": "offset",
+                    "value": "4"
+                  }
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "GetNewsByID",
+            "_postman_id": "5696fb62-f144-47f9-8ec8-3a86e3e315aa",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": "http://localhost:3000/news/61facf927ef33a5caf10768d"
+            },
+            "response": []
+          },
+          {
+            "name": "GetNewsByMes",
+            "_postman_id": "642cb5ed-aeae-43c6-b98c-b9aec783cc44",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDM5MTQxMDUsImV4cCI6MTY0MzkxNTkwNX0.Z_PGolrgPTNUZpPiJvE8QhiEURLlQ4TeAycSe_DuhYk"
+                }
+              },
+              "method": "GET",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"title\": \"Mi nuevo Post\",\r\n    \"description\": \"Una descripcion al azar. Espero que le guste.\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "http://localhost:3000/news/month/December?offset=2",
+                "protocol": "http",
+                "host": [
+                  "localhost"
+                ],
+                "port": "3000",
+                "path": [
+                  "news",
+                  "month",
+                  "December"
+                ],
+                "query": [
+                  {
+                    "key": "offset",
+                    "value": "2"
+                  }
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "GetNewsByTitle",
+            "_postman_id": "4522250e-185a-449c-8366-5380451d70e2",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDQxMDc5NzEsImV4cCI6MTY0NDEwOTc3MX0.K5tdtvAb4h3_5W0nEotSTkapNq9v0jGGCiTBtvB_FnE"
+                }
+              },
+              "method": "GET",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"title\": \"Mi nuevo Post\",\r\n    \"description\": \"Una descripcion al azar. Espero que le guste.\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": "http://localhost:3000/news/title/"
+            },
+            "response": []
+          },
+          {
+            "name": "GetNewsByAutor",
+            "_postman_id": "bbfdaf66-8b61-4432-84ae-a812f402f312",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDM5MTQxMDUsImV4cCI6MTY0MzkxNTkwNX0.Z_PGolrgPTNUZpPiJvE8QhiEURLlQ4TeAycSe_DuhYk"
+                }
+              },
+              "method": "GET",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"title\": \"Mi nuevo Post\",\r\n    \"description\": \"Una descripcion al azar. Espero que le guste.\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "http://localhost:3000/news/month/December?offset=2",
+                "protocol": "http",
+                "host": [
+                  "localhost"
+                ],
+                "port": "3000",
+                "path": [
+                  "news",
+                  "month",
+                  "December"
+                ],
+                "query": [
+                  {
+                    "key": "offset",
+                    "value": "2"
+                  }
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "GetNewsByTag",
+            "_postman_id": "8ace3740-9325-4c85-8e67-c20edc6bff1d",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": {
+                  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NDM5MTY1NzYsImV4cCI6MTY0MzkxODM3Nn0.lHFkJNG00XQ1ognM8uwXPJtOdCG-McUW1RQV3KLJRlo"
+                }
+              },
+              "method": "GET",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"title\": \"Mi nuevo Post\",\r\n    \"description\": \"Una descripcion al azar. Espero que le guste.\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "http://localhost:3000/news/tag/comment?offset=2",
+                "protocol": "http",
+                "host": [
+                  "localhost"
+                ],
+                "port": "3000",
+                "path": [
+                  "news",
+                  "tag",
+                  "comment"
+                ],
+                "query": [
+                  {
+                    "key": "offset",
+                    "value": "2"
+                  }
+                ]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "DeleteNewsByID",
+            "_postman_id": "9c08d324-5744-4f2d-be2b-64d64706e658",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": "http://localhost:3000/news/61facf927ef33a5caf10768d"
+            },
+            "response": []
+          }
+        ],
+        "_postman_id": "fed34a13-d0b7-41ab-b24c-6a693db6444d"
+      },
+      {
+        "name": "Users and Login",
+        "item": [
+          {
+            "name": "CreateUser",
+            "_postman_id": "7f4c9b1d-bbcc-4703-9b3b-ff4236ecf3ad",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"username\": \"guayiyo\",\r\n    \"password\": \"guayo2019\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": "http://localhost:3000/users"
+            },
+            "response": []
+          },
+          {
+            "name": "DeleteUser",
+            "_postman_id": "7faefae2-9346-48b4-af39-21377f57d5b3",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"username\": \"guayiyo\",\r\n    \"password\": \"guayo2019\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": "http://localhost:3000/users/61fbd7c204cb8d1381ccece1"
+            },
+            "response": []
+          },
+          {
+            "name": "FindUserByName",
+            "_postman_id": "684a32bb-e78e-445a-ae51-42fa50143a30",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "GET",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"username\": \"guayiyo\",\r\n    \"password\": \"guayo2019\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": "http://localhost:3000/users"
+            },
+            "response": []
+          },
+          {
+            "name": "Login",
+            "_postman_id": "fc3e143e-581d-4cc2-9306-af4656168c5e",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"username\": \"eduMancilla\",\r\n    \"password\": \"guayod2019\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": "http://localhost:3000/login"
+            },
+            "response": []
+          },
+          {
+            "name": "GetUser",
+            "_postman_id": "c01abead-8e40-4053-8f58-dda7955ce443",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "GET",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"username\": \"guayiyo\",\r\n    \"password\": \"guayo2019\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": "http://localhost:3000/users/61fbd7c204cb8d1381ccece1"
+            },
+            "response": []
+          }
+        ],
+        "_postman_id": "319a047f-2256-44e6-88a7-eb7fb4d471f9"
+      },
+      {
+        "name": "HackerNews API Route",
+        "_postman_id": "596209c1-1245-491f-968f-20435bbfd36b",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "https://hn.algolia.com/api/v1/search_by_date?query=nodejs",
+            "protocol": "https",
+            "host": [
+              "hn",
+              "algolia",
+              "com"
+            ],
+            "path": [
+              "api",
+              "v1",
+              "search_by_date"
+            ],
+            "query": [
+              {
+                "key": "query",
+                "value": "nodejs"
+              }
+            ]
+          }
+        },
+        "response": []
+      }
+    ]
+  }
