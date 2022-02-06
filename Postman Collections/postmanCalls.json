@@ -111,25 +111,7 @@
                 }
               }
             },
-            "url": {
-              "raw": "http://localhost:3000/news/month/December?offset=2",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "news",
-                "month",
-                "December"
-              ],
-              "query": [
-                {
-                  "key": "offset",
-                  "value": "2"
-                }
-              ]
-            }
+            "url": "http://localhost:3000/news/month/February"
           },
           "response": []
         },
