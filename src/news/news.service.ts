@@ -26,11 +26,11 @@ export class NewsService {
         if(!options.offset){
             options.offset = 0
         }
-        const result = await this.newsModel.find().skip(Number(options.offset)).limit(5).exec();
+        const result = await this.newsModel.find().sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
         return {result, total: result.length};
     }
 
-    async findOne(_id: string){
+    async findOne(_id: string): Promise<News>{
         try{
             const news = await this.newsModel.findById(_id).exec()
 
@@ -49,28 +49,28 @@ export class NewsService {
         if(!options.offset){
             options.offset = 0
         }
-        return await this.newsModel.find({month}).skip(Number(options.offset)).limit(5).exec();
+        return await this.newsModel.find({month}).sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
     }
 
     async findByAuthor(options: QueryOptions ,author: string): Promise<News[]> {
         if(!options.offset){
             options.offset = 0
         }
-        return await this.newsModel.find({author}).skip(Number(options.offset)).limit(5).exec();
+        return await this.newsModel.find({author}).sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
     }
 
     async findByTitle(options: QueryOptions ,title: string): Promise<News[]> {
         if(!options.offset){
             options.offset = 0
         }
-        return await this.newsModel.find({title: {$regex: `/${title}/`, options: 'i'}}).skip(Number(options.offset)).limit(5).exec();
+        return await this.newsModel.find({title: {$regex: `/${title}/`}}).sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
     }
 
     async findByTag(options: QueryOptions ,tag: string): Promise<News[]> {
         if(!options.offset){
             options.offset = 0
         }
-        return await this.newsModel.find({tags: tag}).skip(Number(options.offset)).limit(5).exec();
+        return await this.newsModel.find({tags: tag}).sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
     }
 
     async update(_id: string, updateNewsDto: UpdateNewsDto): Promise<News> {

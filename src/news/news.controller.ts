@@ -65,6 +65,16 @@ export class NewsController {
     }
 
     @UseGuards(JwtAuthGuard)
+    @Get('/title/:title')
+    @ApiOperation({ summary: 'Shows a list of news which match with the word in their title.' })
+    @ApiOkResponse({ status: 200, description: 'Return a list of news', type: [NewsBaseDto] })
+    @ApiInternalServerErrorResponse({ description: 'Internal server error',  })
+    @ApiUnauthorizedResponse({description: 'Unauthorized. Require a valid token'})
+    async findByTitle(@Req() req, @Param('title') title:string){
+        return await this.newsService.findByTitle(req.query, title);
+    }
+
+    @UseGuards(JwtAuthGuard)
     @Delete(':id')
     @ApiOperation({ summary: 'Delete a News from database' })
     @ApiResponse({ status: 200, description: 'The news has been deleted', type: NewsBaseDto })
