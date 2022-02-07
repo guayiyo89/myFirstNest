@@ -334,13 +334,14 @@
             "method": "POST",
             "header": [],
             "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"username\": \"default\",\r\n    \"password\": \"reign2020\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "usernme",
+                  "value": "default",
+                  "type": "text"
                 }
-              }
+              ]
             },
             "url": "http://localhost:3000/login"
           },
