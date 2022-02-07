@@ -334,11 +334,16 @@
             "method": "POST",
             "header": [],
             "body": {
-              "mode": "formdata",
-              "formdata": [
+              "mode": "urlencoded",
+              "urlencoded": [
                 {
-                  "key": "usernme",
+                  "key": "username",
                   "value": "default",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "reign2020",
                   "type": "text"
                 }
               ]
