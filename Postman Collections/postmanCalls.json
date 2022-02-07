@@ -281,6 +281,28 @@
           "response": []
         },
         {
+          "name": "GetUser",
+          "id": "c01abead-8e40-4053-8f58-dda7955ce443",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"guayiyo\",\r\n    \"password\": \"guayo2019\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:3000/users/61fbd7c204cb8d1381ccece1"
+          },
+          "response": []
+        },
+        {
           "name": "FindUserByName",
           "id": "684a32bb-e78e-445a-ae51-42fa50143a30",
           "protocolProfileBehavior": {
@@ -321,28 +343,6 @@
               }
             },
             "url": "http://localhost:3000/login"
-          },
-          "response": []
-        },
-        {
-          "name": "GetUser",
-          "id": "c01abead-8e40-4053-8f58-dda7955ce443",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"username\": \"guayiyo\",\r\n    \"password\": \"guayo2019\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": "http://localhost:3000/users/61fbd7c204cb8d1381ccece1"
           },
           "response": []
         }
