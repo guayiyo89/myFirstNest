@@ -2,16 +2,16 @@ version: '3.3'
 services:
   mongo:
     image: mongo
-    container_name: newsmongo
+    container_name: newsmongodb
     volumes:
       - mongo-data:/data/db
     restart: always
-    expose:
-      - "27017"
+    ports:
+      - "27017:27017"
   app:
     image: apinews
-    expose:
-      - "8080"
+    ports:
+      - "3000:3000"
     links:
       - mongo
     depends_on:
