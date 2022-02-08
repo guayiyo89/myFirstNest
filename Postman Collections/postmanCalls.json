@@ -186,7 +186,7 @@
                 }
               },
               "url": {
-                "raw": "http://localhost:3000/news/month/December?offset=2",
+                "raw": "http://localhost:3000/news/byAuthor/redbar0n",
                 "protocol": "http",
                 "host": [
                   "localhost"

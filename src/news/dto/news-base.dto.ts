@@ -23,7 +23,7 @@ export class NewsBaseDto {
         type: Array,
         description: "The Tags attached to the article"
     })
-    tags: [{type: string}];
+    tags: string[];
 
     @ApiProperty({
         type: String,

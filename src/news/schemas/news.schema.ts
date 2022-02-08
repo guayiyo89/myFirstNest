@@ -14,8 +14,8 @@ export class News {
     @Prop()
     author: string;
 
-    @Prop()
-    tags: [{ type: string }];
+    @Prop([String])
+    tags: string[];
 
     @Prop()
     writtenAt: string;
@@ -29,8 +29,8 @@ export class News {
     @Prop()
     updatedAt?: Date;
 
-    @Prop({ required: true })
-    createdAt: Date;
+    @Prop()
+    createdAt?: Date;
 
     @Prop()
     deletedAt?: Date;

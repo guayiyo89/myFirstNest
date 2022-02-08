@@ -5,7 +5,6 @@ import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schemas/users.schema';
-import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class UsersService {
@@ -52,7 +51,18 @@ export class UsersService {
   }
 
   async findByUsername(username: string): Promise<User> {
-    return await this.userModel.findOne({username}).exec();
+    try{
+      const user = await this.userModel.findOne({username}).exec();
+
+      if(!user){
+        throw new NotFoundException({statusCode: 404, message: 'the user does not exist ' + username})
+      }
+
+      return user
+    } 
+    catch(err){
+      throw new BadRequestException(err.message)
+    }
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
@@ -64,7 +74,7 @@ export class UsersService {
       const user = await this.userModel.findById(_id).exec();
 
       if(!user){
-        throw new NotFoundException({statusCode: 404, message: 'the user does not exist ' + _id})
+        throw new NotFoundException({statusCode: 404, message: 'the user does not exist: ' + _id})
       }
 
       return await this.userModel.findByIdAndDelete(_id).exec();
@@ -73,4 +83,5 @@ export class UsersService {
       throw new BadRequestException(err.message)
     }
   }
+
 }

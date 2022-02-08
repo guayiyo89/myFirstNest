@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException, RequestTimeoutException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { News, NewsSchema } from './schemas/news.schema';
@@ -22,12 +22,23 @@ export class NewsService {
         }
     }
 
-    async findAll(options: QueryOptions) {
-        if(!options.offset){
-            options.offset = 0
+    async findAll(options: QueryOptions): Promise<News[]> {
+        try{
+
+            if(!options.offset){
+                options.offset = 0
+            }
+            const result = await this.newsModel.find().sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
+
+            if(result.length == 0){
+                throw new NotFoundException("The input text doen't match with any result.")
+            }
+            return result;
         }
-        const result = await this.newsModel.find().sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
-        return {result, total: result.length};
+        catch(err){
+            throw new BadRequestException(err.message, err)
+        }
+
     }
 
     async findOne(_id: string): Promise<News>{
@@ -41,36 +52,83 @@ export class NewsService {
             return news
         }
         catch(err){
-            throw new BadRequestException(err.message)
+            throw new BadRequestException(err.message, err)
         }
     }
 
     async findByMonth(options: QueryOptions ,month: string): Promise<News[]> {
-        if(!options.offset){
-            options.offset = 0
+        try{
+            if(!options.offset){
+                options.offset = 0
+            }
+            const res = await this.newsModel.find({month}).sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
+
+            if(res.length == 0){
+                throw new NotFoundException("The input text doen't match with any result.")
+            }
+
+            return res
         }
-        return await this.newsModel.find({month}).sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
+        catch(err){
+            throw new BadRequestException('Please insert a valid value to start the search.', err)
+        }
     }
 
     async findByAuthor(options: QueryOptions ,author: string): Promise<News[]> {
-        if(!options.offset){
-            options.offset = 0
+        try{
+            if(!options.offset){
+                options.offset = 0
+            }
+            const res = await this.newsModel.find({author}).sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
+
+            if(res.length == 0){
+                throw new NotFoundException("The input text doen't match with any result.")
+            }
+
+            return res
         }
-        return await this.newsModel.find({author}).sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
+        catch(err){
+            throw new BadRequestException('Please insert a valid value to start the search.', err)
+        }
     }
 
     async findByTitle(options: QueryOptions ,title: string): Promise<News[]> {
-        if(!options.offset){
-            options.offset = 0
+        try{
+            if(!options.offset){
+                options.offset = 0
+            }
+
+            const res = await this.newsModel.find({title: {$regex: new RegExp(title.toLowerCase(), "i")}})
+                                            .sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
+            
+            if(res.length == 0){
+                throw new NotFoundException("The input text doen't match with any result.")
+            }
+    
+            return res
         }
-        return await this.newsModel.find({title: {$regex: `/${title}/`}}).sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
+        catch(err){
+            throw new BadRequestException('Please insert a valid value to start the search.', err)
+        }
+
     }
 
     async findByTag(options: QueryOptions ,tag: string): Promise<News[]> {
-        if(!options.offset){
-            options.offset = 0
+        try{
+            if(!options.offset){
+                options.offset = 0
+            }
+            const res = await this.newsModel.find({tags: tag}).sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
+
+            if(res.length == 0){
+                throw new NotFoundException("The input text doen't match with any result.")
+            }
+    
+            return res
         }
-        return await this.newsModel.find({tags: tag}).sort({writtenAt: -1}).skip(Number(options.offset)).limit(5).exec();
+        catch(err){
+            throw new BadRequestException('Please insert a valid value to start the search.', err)
+        }
     }
 
     async update(_id: string, updateNewsDto: UpdateNewsDto): Promise<News> {
@@ -88,7 +146,7 @@ export class NewsService {
             return await this.newsModel.findByIdAndDelete(_id).exec();
         }
         catch(err){
-            throw new BadRequestException(err.message)
+            throw new BadRequestException(err.message, err)
         }
     }
 
@@ -97,7 +155,14 @@ export class NewsService {
     }
 
     async fillDb() {
-        return await this.fillDatabase()
+        try{
+            return await this.fillDatabase()
+        }
+        catch(err){
+            throw new RequestTimeoutException(err)
+            console.log(err)
+        }
+
     }
     
     @Cron(CronExpression.EVERY_HOUR)
@@ -140,7 +205,6 @@ export class NewsService {
             pin.forEach(article => {
                 let month = this.getMonth(article.created_at)
                 let titulo = article.story_title 
-                console.log(titulo)
                 
                 arrNews.push({
                     title: titulo || 'untitled',
@@ -155,7 +219,7 @@ export class NewsService {
                 
             });
 
-            this.newsModel.insertMany(arrNews.reverse).then(result => {
+            this.newsModel.insertMany(arrNews).then(result => {
                 console.log(result)
             })
             console.log('the news has been added to database', pin.length);

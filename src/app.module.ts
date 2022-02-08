@@ -11,7 +11,7 @@ import { UsersModule } from './users/users.module';
 @Module({
   imports: [
      HttpModule, NewsModule,
-     MongooseModule.forRoot('mongodb+srv://guayin89:C1a4s4a2@cluster0.b7zex.mongodb.net/testDb?retryWrites=true&w=majority'),
+     MongooseModule.forRoot(`mongodb://localhost:27017/newsapidb`, { useNewUrlParser: true }),
      ScheduleModule.forRoot(),
      AuthModule,
      UsersModule],
