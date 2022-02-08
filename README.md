@@ -5,26 +5,9 @@
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+An API developed using [Nest](https://github.com/nestjs/nest) which obtains a News for every hour from an API of HackerNews.
 
 ## Installation
 
@@ -34,29 +17,36 @@ $ npm install
 
 ## Running the app
 
+To run the application, you must first build the Docker of the API and then you have to run the docker-compose to run the App and the database.
+
 ```bash
-# development
-$ npm run start
+# build the docker of the Nest Api
+$ docker build -t apinews .
 
-# watch mode
-$ npm run start:dev
+# Compose API + MongoDB
+$ docker-compose up -d
 
-# production mode
-$ npm run start:prod
 ```
 
-## Test
+## Filling the Database
+
+To fill in the database, you first have to be registered in the application. To do this, you have to create a user and then you can log in with it.
+
+When you log in, the application sends you an access token in response. This token must be used to call the endpoint to fill the database with the latest news.
 
 ```bash
-# unit tests
-$ npm run test
+# endpoint: create user (doesn't need token)
+http://localhost:3000/users (POST)
 
-# e2e tests
-$ npm run test:e2e
+# endpoint: fill Database
+http://localhost:3000/news/fill
 
 # test coverage
 $ npm run test:cov
 ```
+
+**NOTE:** It is recommended to create the User, to avoid have problems with testing:
+    {username: 'default', password: 'reign2020'}
 
 ## Support
 
@@ -64,9 +54,8 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - Eduardo Mancilla
+
 
 ## License
 
