@@ -17,7 +17,7 @@ describe('AuthService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [UsersModule, 
-        MongooseModule.forRoot(`mongodb://mongo:27017/newsapidb`),
+        MongooseModule.forRoot(`mongodb://localhost:27017/newsapidb`),
         JwtModule.register({
         secret: jwtSeed.secret,
         signOptions: { expiresIn: '1800s' },

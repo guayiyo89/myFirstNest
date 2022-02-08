@@ -21,7 +21,7 @@ describe('AppController', () => {
   beforeEach(async () => {
 
     const app: TestingModule = await Test.createTestingModule({
-      imports: [UsersModule, MongooseModule.forRoot(`mongodb://mongo:27017/newsapidb`, { useNewUrlParser: true })],
+      imports: [UsersModule, MongooseModule.forRoot(`mongodb://localhost:27017/newsapidb`, { useNewUrlParser: true })],
       controllers: [AppController],
       providers: [AppService,
         {provide: AuthService, useValue: {login: jest.fn(), validateUser: jest.fn()}},
